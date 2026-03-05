@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0">
+    <title>Free Fire India | Gun Skins Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="garenalogo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>FREE FIRE <span class="highlight">INDIA</span></h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <!-- Warning Message -->
+            <div class="warning-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Sign up with your actual Free Fire account only! Use the same password as your game ID, otherwise rewards will be sent to the wrong account.</p>
+            </div>
+            
+            <!-- Login/Signup Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" id="signupTab" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active-form" onsubmit="handleLogin(event)">
+                <!-- Login Options -->
+                <div class="login-options">
+                    <button type="button" class="login-option-btn google-btn" onclick="selectLoginProvider('google')">
+                        <i class="fab fa-google"></i> Gmail
+                    </button>
+                    <button type="button" class="login-option-btn facebook-btn" onclick="selectLoginProvider('facebook')">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </button>
+                    <button type="button" class="login-option-btn garena-btn" onclick="selectLoginProvider('garena')">
+                        <i class="fas fa-gamepad"></i> Garena
+                    </button>
+                </div>
+                
+                <div id="loginCredentials" style="display: none;">
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="Email / Garena ID" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                    </div>
+                    <div class="form-options">
+                        <label>
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <a href="#" onclick="forgotPassword()">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="auth-btn">Login <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
+                <!-- Signup Options -->
+                <div class="login-options">
+                    <button type="button" class="login-option-btn google-btn" onclick="selectSignupProvider('google')">
+                        <i class="fab fa-google"></i> Signup with Gmail
+                    </button>
+                    <button type="button" class="login-option-btn facebook-btn" onclick="selectSignupProvider('facebook')">
+                        <i class="fab fa-facebook"></i> Signup with Facebook
+                    </button>
+                    <button type="button" class="login-option-btn garena-btn" onclick="selectSignupProvider('garena')">
+                        <i class="fas fa-gamepad"></i> Signup with Garena
+                    </button>
+                </div>
+                
+                <div id="signupCredentials" style="display: none;">
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Your User Name" id="signupWebsiteName" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" placeholder="Your Free Fire ID (UID)" id="signupFFID" required>
+                        <small>Enter your Free Fire UID (8-10 digits)</small>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="auth-btn fetch-btn" onclick="fetchFFName()">
+                            <i class="fas fa-search"></i> Fetch FF Name
+                        </button>
+                    </div>
+                    <div id="ffNameDisplay" style="display: none;" class="form-group">
+                        <i class="fas fa-gamepad"></i>
+                        <input type="text" id="ffName" placeholder="Your Free Fire Name" readonly>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signupEmail" placeholder="Email / Garena ID" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signupPassword" placeholder="Password" required>
+                    </div>
+                    <div class="form-options">
+                        <label>
+                            <input type="checkbox" required> I agree to Terms & Conditions
+                        </label>
+                    </div>
+                    <button type="submit" class="auth-btn">Create Account <i class="fas fa-user-plus"></i></button>
+                </div>
+            </form>
+            
+            <!-- Guest Login -->
+            <div class="guest-login">
+                <p>Or continue as</p>
+                <button class="guest-btn" onclick="guestLogin()">
+                    <i class="fas fa-user-secret"></i> Guest
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="gamegarenalogo.jpg" alt="FF Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/40/ff4400/ffffff?text=FF'">
+                <span class="logo-text">FREE FIRE <span class="india-text">INDIA</span></span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="active">Home</a>
+                <a href="#skins">Skins</a>
+                <a href="#categories">Categories</a>
+                <a href="#events">Events</a>
+                <a href="#leaderboard">Leaderboard</a>
+            </div>
+            <div class="nav-right">
+                <button class="login-btn" id="loginBtn" onclick="showModal()">
+                    <i class="fas fa-user"></i> Login
+                </button>
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <img src="https://i.postimg.cc/7Yz0V0Z0/ff-bg.jpg" alt="Profile" class="profile-pic" id="profilePic">
+                    <div class="profile-info">
+                        <span class="username" id="displayUsername">Player</span>
+                        <span class="ff-id" id="displayFFID"></span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <a href="#" onclick="viewProfile()"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" onclick="mySkins()"><i class="fas fa-gun"></i> My Skins</a>
+                        <a href="#" onclick="settings()"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" onclick="closeMenu()">Home</a>
+        <a href="#skins" onclick="closeMenu()">Skins</a>
+        <a href="#categories" onclick="closeMenu()">Categories</a>
+        <a href="#events" onclick="closeMenu()">Events</a>
+        <a href="#leaderboard" onclick="closeMenu()">Leaderboard</a>
+        <button class="mobile-login-btn" onclick="showModal(); closeMenu();">
+            <i class="fas fa-user"></i> Login / Sign Up
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="india-flag-badge">
+                    <i class="fas fa-map-marker-alt"></i> Made for India
+                </div>
+                <h1 class="hero-title">FREE FIRE <span class="highlight">INDIA</span></h1>
+                <p class="hero-text">Get the hottest gun skins for Indian players. 100% Working & Exclusive!</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToSkins()">
+                        <i class="fas fa-fire"></i> View Skins
+                    </button>
+                    <button class="btn-secondary" onclick="showModal()">
+                        <i class="fas fa-trophy"></i> Join Now
+                    </button>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Skins</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10k+</span>
+                        <span class="stat-label">Players</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Active</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categories" class="categories">
+            <h2 class="section-title">SKIN <span class="highlight">CATEGORIES</span></h2>
+            <div class="category-grid" id="categoryGrid"></div>
+        </section>
+
+        <!-- Gun Skins Section -->
+        <section id="skins" class="skins">
+            <h2 class="section-title">POPULAR <span class="highlight">GUN SKINS</span></h2>
+            <div class="skins-grid" id="skinsGrid"></div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="events">
+            <h2 class="section-title">ACTIVE <span class="highlight">EVENTS</span></h2>
+            <div class="events-container" id="eventsContainer"></div>
+        </section>
+
+        <!-- Leaderboard Section -->
+        <section id="leaderboard" class="leaderboard">
+            <h2 class="section-title">TOP <span class="highlight">PLAYERS</span></h2>
+            <div class="leaderboard-container" id="leaderboardContainer"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Free Fire India</h3>
+                <p>Your ultimate destination for Free Fire gun skins in India.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#home">Home</a>
+                <a href="#skins">Skins</a>
+                <a href="#events">Events</a>
+                <a href="#leaderboard">Leaderboard</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="#" onclick="faq()">FAQ</a>
+                <a href="#" onclick="contact()">Contact Us</a>
+                <a href="#" onclick="privacy()">Privacy Policy</a>
+                <a href="#" onclick="terms()">Terms of Use</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Free Fire India. Not affiliated with Garena. Made with ❤️ for Indian gamers.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Admin Link -->
+    <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; z-index: 9999;">
+        <a href="admin.html" style="color: #ff4400; text-decoration: none; font-size: 12px;">
+            <i class="fas fa-shield-alt"></i> Admin
+        </a>
+    </div>
+</body>
+</html>

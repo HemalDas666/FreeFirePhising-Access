@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0">
     <title>Free Fire India | Gun Skins Hub</title>
+    <!-- Firebase Scripts FIRST -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="garenalogo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -31,7 +35,6 @@
             
             <!-- Login Form -->
             <form id="loginForm" class="auth-form active-form" onsubmit="handleLogin(event)">
-                <!-- Login Options -->
                 <div class="login-options">
                     <button type="button" class="login-option-btn google-btn" onclick="selectLoginProvider('google')">
                         <i class="fab fa-google"></i> Gmail
@@ -65,7 +68,6 @@
             
             <!-- Signup Form -->
             <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
-                <!-- Signup Options -->
                 <div class="login-options">
                     <button type="button" class="login-option-btn google-btn" onclick="selectSignupProvider('google')">
                         <i class="fab fa-google"></i> Signup with Gmail
@@ -267,12 +269,13 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <!-- Admin Link -->
+    <!-- Admin Link (hidden) -->
     <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; z-index: 9999;">
         <a href="admin.html" style="color: #ff4400; text-decoration: none; font-size: 12px;">
             <i class="fas fa-shield-alt"></i> Admin
         </a>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
